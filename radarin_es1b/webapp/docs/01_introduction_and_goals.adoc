@@ -1,0 +1,109 @@
+[[section-introduction-and-goals]]
+== Introducción y objetivos
+
+[role="arc42help"]
+****
+Describes the relevant requirements and the driving forces that software architects and development team must consider. These include
+
+* underlying business goals, essential features and functional requirements for the system
+* quality goals for the architecture
+* relevant stakeholders and their expectations
+****
+
+Radarin consiste en una aplicación descentralizada que toma como objetivo facilitar encuentros entre amigos. Para ello, se hace uso de la ubicación de los usuarios que la habiliten de forma voluntaria, de forma que cada usuario pueda conocer, de forma aproximada, en qué ubicación se encuentran los usuarios de su lista de amigos.
+
+Además, Radarin es capaz de notificar al usuario cada vez que alguno de sus amigos se encuentre en una ubicación relativamente cercana a la suya.
+
+La aplicación busca respetar, en la medida de lo posible, la privacidad de los usuarios. Para ello, se solicitará el permiso expreso del usuario en cada momento y solamente se guardará la información imprescindible para los encuentros, dejando a un lado cualquier otro tipo de información de carácter personal.
+
+=== Vista general de los requisitos
+
+[role="arc42help"]
+****
+.Contents
+Short description of the functional requirements, driving forces, extract (or abstract)
+of requirements. Link to (hopefully existing) requirements documents
+(with version number and information where to find it).
+
+.Motivation
+From the point of view of the end users a system is created or modified to
+improve support of a business activity and/or improve the quality.
+
+.Form
+Short textual description, probably in tabular use-case format.
+If requirements documents exist this overview should refer to these documents.
+
+Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.
+****
+
+==== Requisitos Funcionales
+
+- El usuario debe poder acceder a la aplicación tanto desde su navegador como desde su teléfono móvil a través de la app.
+- Cada usuario debe ser capaz de ver su lista de amigos y la ubicación más reciente de cada uno de ellos.
+- Se debe priorizar la seguridad y privacidad de cada usuario almacenando la información de cada uno en sus respectivos pods.
+- El usuario debe ser capaz de recibir notificaciones cuando otros usuarios conocidos estén cerca de su ubicación.
+
+==== Requisitos No Funcionales
+
+- El sistema debe ser desplegado en contenedores y servicios en la nube.
+- La versión móvil también debe incluir un sistema de monitorización.
+- La aplicación debe ser adaptable, accesible y cumplir los estándares del W3C.
+
+=== Objetivos de Calidad
+
+[role="arc42help"]
+****
+.Contents
+The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders. We really mean quality goals for the architecture. Don't confuse them with project goals. They are not necessarily identical.
+
+.Motivation
+You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions. Make sure to be very concrete about these qualities, avoid buzzwords.
+If you as an architect do not know how the quality of your work will be judged …
+
+.Form
+A table with quality goals and concrete scenarios, ordered by priorities
+****
+
+_Tabla 1: Objetivos de Calidad_ 
+[options="header",cols="1,1"]
+|===
+|Objetivo|Detalles
+| _Privacidad_ | _El usuario final será el único capaz de acceder a sus datos, que serán almacenados en su respectiva unidad privada de datos personales (POD)._
+| _Usabilidad_ | _Utilizar la aplicación debería resultar en un proceso sencillo e intuitivo para el usuario final._
+| _Rendimiento_ | _La aplicación debe responder a la interacción del usuario empleando el menor tiempo posible._
+| _Mantenibilidad_ | _La arquitectura de la aplicación debe permitir añadir o modificar la funcionalidad de la misma con el menor número posible de cambios._
+| _Testeabilidad_ | _La aceptación y la carga de la aplicación deben ser sometidas a pruebas unitarias realizadas de forma automática en el propio servidor._
+|===
+
+=== Stakeholders
+
+[role="arc42help"]
+****
+.Contents
+Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that
+
+* should know the architecture
+* have to be convinced of the architecture
+* have to work with the architecture or with code
+* need the documentation of the architecture for their work
+* have to come up with decisions about the system or its development
+
+.Motivation
+You should know all parties involved in development of the system or affected by the system.
+Otherwise, you may get nasty surprises later in the development process.
+These stakeholders determine the extent and the level of detail of your work and its results.
+
+.Form
+Table with role names, person names, and their expectations with respect to the architecture and its documentation.
+****
+A continuación se expone en la tabla 2 las distintas partes interesadas en la aplicación
+
+_Tabla 2: Stakeholders_ 
+[options="header",cols="1,2,2"]
+|===
+|Rol|Descripción|Expectativas
+| _Cliente_ | _Persona u organización que encarga o solicita el desarrollo de la aplicación._ | _Entrega de requisitos a los desarrolladores sobre qué debe hacer la aplicación; seguimiento del desarrollo de la aplicación con el fin de verificar que esta se ajuste lo máximo posible a dichos requisitos._
+| _Equipo de Supervisión_ | _Conjunto de profesionales que supervisan el trabajo realizado por el Equipo de Desarrollo._ | _Supervisión del trabajo realizado por los desarrolladores; verificación de que los requisitos trabajados coincidan con aquellos establecidos por el cliente y realización de labores de asesoramiento en caso de resultar oportuno._
+| _Equipo de Desarrollo_ | _Conjunto de personas dedicadas a construir y programar la aplicación y su arquitectura._ | _Desarrollo de la aplicación en su totalidad, ajustada en la medida de lo posible a los requisitos del cliente._
+| _Usuario Final_ | _Conjunto de personas que van a utilizar la aplicación construida._ | _Capacidad de utilizar e interactuar con la aplicación de forma intuitiva y sin dificultades._
+|===

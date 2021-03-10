@@ -1,0 +1,63 @@
+[[section-system-scope-and-context]]
+== Alcance y contexto del sistema
+
+Radarin es un sistema descentralizado basado en SOLID para facilitar el encuentro entre amigos utilizando la localización del teléfono siempre 
+y cuando haya sido autorizada por el usuario, permitiendo que cuando dos amigos se encuentran cerca esto pueda ser notificado, con el objetivo 
+de facilitar los encuentros. El sistema solamente almacenará localizaciones e instantes de tiempo en los que han ocurrido dichas localizaciones pero evitará almacenar cualquier otro tipo de información personal sobre los usuarios.
+
+=== Contexto empresarial
+
+Para cumplir el requisito de la descentralización, Radarin empleará SOLID para el almacenamiento de los datos de los usuarios. Cada usuario tendrá un POD (lugar de almacenaje) independiente de los otros usuarios, y del que tendrá el control completo de sus datos.
+La aplicación se conectará con cada uno de los PODs, dependiendo de la información que necesite, para obtener o añadir la información adecuada.
+
+image:3-1-Diagram.PNG["Example Diagram"]
+
+.Radarin
+|=========================================================
+| Agente |Entrada |Salida
+
+| Usuario
+| Especifica qué usuarios se definen como su "amigo". Recibe la ubicación de todos ellos.
+| Proporciona su ubicación. 
+
+| POD
+| Registra los "amigos" del usuario.
+| Permite comprobar el listado de "amigos"
+
+| Radarin
+| Localizaciones y definición de relaciones entre usarios (qué usuarios son amigos) 
+| Ubicaciones de los usuarios.
+
+| Comunicación con el usuario
+| 
+| Notifica cuando un contacto está cerca.
+
+|=========================================================
+
+
+
+
+=== Contexto técnico
+
+Radarin es un sistema descentralizado basado en la arquitectura SOLID; esta arquitectura fue creada por el padre de la web, Tim Berners-Lee. 
+Un sistema descentralizado es aquel donde el usuario posee sus propios datos y no son las empresas quienes comercian con estos. 
+Cada usuario tendrá un SOLID POD vinculado a su cuenta. Este POD será la unidad principal de almacenamiento donde el usuario almacenará todos sus datos. De esta forma, el usuario podrá decidir con quién comparte esa información, qué datos son públicos, cuáles son privados y negar el acceso a sus datos a quien sea y cuando quiera.  
+En Radarin empleamos esta tecnología con el fin de proteger a nuestros usuarios. Cuando el usuario conecte su móvil a internet y emplee la aplicación su localización quedará registrada en el POD donde podrá decidir si compartirla o no con sus amistades.
+La aplicación web será escrita en JavaScript utilizando React, una biblioteca que facilitará la configuración de una interfaz de usuario. 
+Se espera que la aplicación funcione en todo tipo de dispositivos: tanto a nivel web como en dispositivos móviles.
+
+* Interfaces Técnicas:
+
+[options="header",cols="1,2"]
+|===
+|Interfaces Técnicas|Descripción
+|Solid|Se trata de la base del proyecto, donde los datos de los usuarios se encuentran descentralizados y protegidos almacenandolos en PODS.
+|Javascript|Es el lenguaje de programación empleado para desarrollar la aplicación.
+|React|Biblioteca de JavaScript de codigo abierto empleada para construir interfaces gráficas. 
+|Leaflet|Una biblioteca JavaScript de código abierto para mapas interactivos compatibles con dispositivos móviles.
+|Docker|Es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software.
+|===
+
+image:3-2Diagram.png["Example Diagram"]
+image:3-2Diagram-2.png["Example Diagram"]
+

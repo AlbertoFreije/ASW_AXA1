@@ -1,0 +1,110 @@
+[[section-runtime-view]]
+== Vista en tiempo de ejecución
+
+
+[role="arc42help"]
+****
+.Contents
+The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:
+
+* important use cases or features: how do building blocks execute them?
+* interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?
+* operation and administration: launch, start-up, stop
+* error and exception scenarios
+
+Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their *architectural relevance*. It is *not* important to describe a large number of scenarios. You should rather document a representative selection.
+
+.Motivation
+You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
+You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).
+
+.Form
+There are many notations for describing scenarios, e.g.
+
+* numbered list of steps (in natural language)
+* activity diagrams or flow charts
+* sequence diagrams
+* BPMN or EPCs (event process chains)
+* state machines
+* ...
+
+****
+
+=== <Log In>
+
+Al iniciar la aplicación el usuario debe iniciar sesión con SOLID para acceder a la aplicación.
+
+.El proceso de logueo seguiría los siguientes pasos:
+. El usuario entra en la aplicación y solicita loguearse
+. Se le pasa un formulario para rellenar los credentials
+. El usuario rellena el formulario con sus credenciales
+. Se realiza una autenticación de la información aportada
+. Se responde autorizando o denegando el acceso dependiendo del resultado de la autenticación
+
+
+[plantuml,"Login diagram",png]
+----
+actor Usuario
+participant Radarin
+database Pod as "Pod del usuario"
+Usuario -> Radarin: Petición de autenticación
+Radarin --> Pod: Validación de credenciales
+Radarin  <- Pod: Respuesta a la validación
+Usuario <- Radarin: Respuesta a la autenticación
+----
+
+=== <Lista de amigos>
+
+La aplicación tiene una vista que implementa el CRUD de amigos.
+
+.Al acceder a esta vista se realiza el siguiente proceso:
+. El usuario entra en la aplicación y se dirige a la vista de amigos
+. El cliente recive la petición y solicita al servidor la lista de amigos
+. El servidor consulta en el POD los amigos del usuario
+. Una vez tiene los amigos, se los devuelve al cliente
+. El cliente recibe la lista y le muetra la vista al usuario
+
+
+[plantuml,"Friends diagram",png]
+----
+actor Usuario
+participant Cliente
+participant Servidor
+database Pod as "Pod del usuario"
+Usuario -> Cliente: Petición de vista de amigos
+Cliente --> Servidor: Petición de lista de amigos
+Servidor --> Pod: Consulta la lista de amigos
+Servidor <-- Pod: Responde con la lista de amigos
+Cliente <-- Servidor: Responde con la lista de amigos solicitada
+Usuario <- Cliente: Responde con la vista de amigos
+----
+
+=== <Localizaciones de amigos>
+
+Una funcionalidad que ofrece la aplicación es representar la ubicación de los amigos en un mapa.
+
+.El proceso para obtener este mapa con ubicaciones es el siguiente:
+. El usuario entra en la aplicación y se dirige a la ventana de ubicaión de amigos
+. React recive la petición y solicita al servidor las ubicaciones de los amigos
+. El servidor consulta en el POD los amigos del usuario
+. Una vez tiene los amigos, obtiene las localizaciones de estos usuarios en la base de datos
+. El servidor recibe las ubicaciones y se las pasa al cliente
+. El cliente muestra el mapa con las ubicaciones de los amigos al usuario
+
+
+[plantuml,"Location diagram",png]
+----
+actor Usuario
+participant Cliente
+participant Servidor
+database Pod as "Pod del usuario"
+database BD as "MongoDB"
+Usuario -> Cliente: Petición de vista de ubicaciones
+Cliente --> Servidor: Petición de ubicaciones
+Servidor --> Pod: Consulta la lista de amigos
+Servidor <-- Pod: Responde con la lista de amigos
+Servidor --> BD: Consulta las ubicaciones de los amigos dados
+Servidor <-- BD: Responde con las lista de ubicaciones
+Cliente <-- Servidor: Responde con la lista de ubicaciones dadas
+Usuario <- Cliente: Responde con una vista en la que se muestre el mapa deseado
+----
