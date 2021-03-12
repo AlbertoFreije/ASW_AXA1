@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import './App.css';
-import logo from './logo.svg';
 import Welcome from './components/Welcome';
 import EmailForm from "./components/EmailForm";
 import UserList from "./components/UserList";
@@ -29,19 +28,20 @@ const AppHeader = withStyles({
   login: {
     flexGrow: 1
   }
-})(({classes}) => <header className={classes.root}>
+})(({classes}) => 
+<header className={classes.root}>
+  {/*-AppBar muestra información y acciones relacionadas con la pantalla actual , el contenedor de la barra ("nav")*/}
   <AppBar position="static" color="default">
+    {/* Toolbar es la barra, donde se incluyen los componentes ("botones") */}
     <Toolbar>
       <div className={classes.grow}>
         <Button
-            component={Link}
-            to={"/"}>
-          <Typography className={classes.grow} variant="h5" component="h2"
-                      color="inherit">
-            RADARIN
-          </Typography>
+            component={Link} to={"/"}>
+          {/* Typography da formato al texto*/}
+          <Typography className={classes.grow} variant="h2" component="h2" color="inherit" align= "center"> RADARIN </Typography>
         </Button>
       </div>
+      {/* Llama a login  */}
       <Login/>
     </Toolbar>
   </AppBar>
@@ -50,10 +50,16 @@ const AppHeader = withStyles({
 class App extends React.Component{
   constructor(){
     super()
-    this.state = {users:[]}
+    {/* array para almacenar los usuarios conectados*/}
+    this.state = {
+      users:[] 
+      
+    }
   }
 
+  
   refreshUsers(users){
+    {/* refresca los users al registrar uno nuevo*/}
     this.setState({users:users})
   }
 
@@ -62,25 +68,21 @@ class App extends React.Component{
       <div className="App">
 	  <CssBaseline />
 	  <Router>
+      {/*Router conjunto de componentes de navegación  */}
         <header className="App-header">
-		{/*<img src={logo} className="App-logo" alt="logo"/> <Welcome name="ASW students"/>*/}
-          <AppHeader/>
+		       {/*<img src={logo} className="App-logo" alt="logo"/> <Welcome name="ASW students"/>*/}
+           <AppHeader/>
         </header>
-		<main>
+		    <main>
+              {/*Route, enlace a la ruta indica que en StartPage en la direcion / se vera el contenido de la clase StartPage  */}
               <Route exact path="/" component={StartPage}/>
+              {/* location es la localizacion donde se encuentra la app y sirve para almacenar donde quieras ir, en este caso si queremos ir a /profile le tenemos que pasar lo que quiere mostrar mediante la llamada a la IU Profile*/}
+              {/* En webId lo que le pasa en la direccion del perfil de solid */}
               <Route path="/profile/" render={({location}) => {
                 const params = qs.parse(location.search);
                 return <Profile webId={params.webId}/>
               }}/>
-            </main>
-			{/*<div className="App-content">
-          <EmailForm refreshUsers={this.refreshUsers.bind(this)}/>
-          <UserList users={this.state.users}/>
-          <a className="App-link"
-            href="https://github.com/pglez82/radarin_0"
-            target="_blank"
-            rel="noopener noreferrer">Source code</a>
-			</div>*/}
+        </main>
 	  </Router>
       </div>
     )

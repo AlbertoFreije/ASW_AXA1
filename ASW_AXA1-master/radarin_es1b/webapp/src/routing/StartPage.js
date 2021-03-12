@@ -14,6 +14,8 @@ import toProfile from "./toProfile";
 
 import { makeStyles } from '@material-ui/core/styles';
 
+//Parte de creación de la interfaz grafica de la página principal , emplea distintos Layaouts
+
 const useStyles = makeStyles(() => ({
   media: {
     objectFit: 'contain'
@@ -22,8 +24,7 @@ const useStyles = makeStyles(() => ({
 
 export default () => {
   const classes = useStyles();
-  return <Grid container spacing={3} alignItems="center" justify="center"
-               direction="column">
+  return  <Grid container spacing={3} alignItems="center" justify="center" direction="column">
     <Grid container item xs={12} sm={9} md={6} spacing={0} justify="center"
           alignItems="stretch"
           direction="column">

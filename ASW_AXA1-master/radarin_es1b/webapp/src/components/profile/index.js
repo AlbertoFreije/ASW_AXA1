@@ -6,7 +6,5 @@ export default ({webId}) => {
 
     const profile = useProfile(webId);
 
-    return <ProfileContainer
-        {...profile}
-    />;
+    return <ProfileContainer {...profile} />; //le pasa los valores extraidos de la consulta a ProfileContainer de Container.js
 }

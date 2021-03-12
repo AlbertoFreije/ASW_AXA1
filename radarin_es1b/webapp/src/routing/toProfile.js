@@ -1,1 +1,0 @@
-export default (webId) => '/profile?webId=' + encodeURIComponent(webId);
